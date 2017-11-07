@@ -6,18 +6,24 @@ public class ButtonListener implements PushButtonListener{
 	
 	private VendingMachine vm;
 	private CReceptacleListener r;
+	private boolean on;
 	
 	public ButtonListener (VendingMachine vm,CReceptacleListener r) {
 		this.vm = vm;
 		this.r = r;
 	}
+	public boolean getState() {
+		return on;
+	}
 
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
+		on = true;
 	}
 
 	@Override
 	public void disabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
+		on = false;
 	}
 
 	@Override
