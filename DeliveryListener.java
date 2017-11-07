@@ -28,7 +28,7 @@ public class DeliveryListener implements DeliveryChuteListener {
 	@Override
 	public void itemDelivered(DeliveryChute chute) {
 		// TODO Auto-generated method stub
-		//vm.getDisplay().display("Coins returned/ Pop can vended");
+		vm.getDisplay().display("Pop can vended");
 	}
 
 	@Override
