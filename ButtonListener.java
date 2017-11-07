@@ -31,9 +31,11 @@ public class ButtonListener implements PushButtonListener{
 			}
 		}
 		
-		int cost = vm.getPopKindCost(index);
-		if (cost > r.getTotal()) {
-			System.out.print("Not enough cash\n");
+		int popCost = vm.getPopKindCost(index);
+		
+		//display that there is not enough credit to buy selected pop
+		if (r.getTotal() < popCost) {
+			vm.getDisplay().display("Not enough credit");
 			return;
 		}
 		else {
@@ -42,7 +44,7 @@ public class ButtonListener implements PushButtonListener{
 				vm.getCoinReceptacle().storeCoins();
 				return;
 			}catch(EmptyException e) {
-				System.out.print("Sorry, it's empty\n");
+				vm.getDisplay().display("Sorry, all out of that selection");
 				return;
 			}
 			catch(CapacityExceededException e) {
