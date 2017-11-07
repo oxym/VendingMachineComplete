@@ -1,4 +1,4 @@
-package ca.ucalgary.seng300.a2;
+
 import java.util.Arrays;
 import java.util.Scanner;
 

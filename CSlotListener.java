@@ -1,4 +1,4 @@
-package ca.ucalgary.seng300.a1;
+
 import org.lsmr.vending.Coin;
 import org.lsmr.vending.hardware.*;
 
