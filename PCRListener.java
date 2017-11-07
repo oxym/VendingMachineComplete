@@ -1,4 +1,4 @@
-package ca.ucalgary.seng300.a1;
+
 
 import org.lsmr.vending.PopCan;
 import org.lsmr.vending.hardware.AbstractHardware;

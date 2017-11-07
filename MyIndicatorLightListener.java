@@ -1,3 +1,8 @@
+import org.lsmr.vending.hardware.AbstractHardware;
+import org.lsmr.vending.hardware.AbstractHardwareListener;
+import org.lsmr.vending.hardware.IndicatorLight;
+import org.lsmr.vending.hardware.IndicatorLightListener;
+
 public class MyIndicatorLightListener implements IndicatorLightListener {
 
 	@Override
