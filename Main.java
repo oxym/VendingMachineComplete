@@ -1,10 +1,3 @@
-//Group 17
-//Micheal James de Grood, 10134884
-//Tariq Rahmani, 30006949
-//Xian-Meng Low, 10127970
-
-package ca.ucalgary.seng300.a1;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
