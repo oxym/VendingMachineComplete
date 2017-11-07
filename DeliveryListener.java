@@ -1,10 +1,8 @@
-package ca.ucalgary.seng300.a2.logic;
-
-import ca.ucalgary.seng300.a2.hardware.AbstractHardware;
-import ca.ucalgary.seng300.a2.hardware.AbstractHardwareListener;
-import ca.ucalgary.seng300.a2.hardware.DeliveryChute;
-import ca.ucalgary.seng300.a2.hardware.DeliveryChuteListener;
-import ca.ucalgary.seng300.a2.hardware.VendingMachine;
+import org.lsmr.vending.hardware.AbstractHardware;
+import org.lsmr.vending.hardware.AbstractHardwareListener;
+import org.lsmr.vending.hardware.DeliveryChute;
+import org.lsmr.vending.hardware.DeliveryChuteListener;
+import org.lsmr.vending.hardware.VendingMachine;
 
 public class DeliveryListener implements DeliveryChuteListener {
 	private boolean isFull = false;
@@ -50,5 +48,7 @@ public class DeliveryListener implements DeliveryChuteListener {
 		// TODO Auto-generated method stub
 		isFull = true;
 	}
+
+
 
 }

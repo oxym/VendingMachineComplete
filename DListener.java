@@ -1,4 +1,4 @@
-package ca.ucalgary.seng300.a1;
+
 
 import org.lsmr.vending.hardware.AbstractHardware;
 import org.lsmr.vending.hardware.AbstractHardwareListener;
