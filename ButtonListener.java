@@ -28,6 +28,7 @@ public class ButtonListener implements PushButtonListener{
 			if (vm.getSelectionButton(i).equals(button)){
 				index = i;
 				break;
+				
 			}
 		}
 		
