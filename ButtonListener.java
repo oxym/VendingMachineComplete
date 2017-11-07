@@ -2,7 +2,7 @@ package ca.ucalgary.seng300.a1;
 
 import org.lsmr.vending.hardware.*;
 
-public class ButtonListener implements SelectionButtonListener{
+public class ButtonListener implements PushButtonListener{
 	
 	private VendingMachine vm;
 	private CReceptacleListener r;
@@ -21,7 +21,7 @@ public class ButtonListener implements SelectionButtonListener{
 	}
 
 	@Override
-	public void pressed(SelectionButton button) {
+	public void pressed(PushButton button) {
 		int buttonNum = vm.getNumberOfSelectionButtons();
 		int index=-1;
 		for (int i = 0; i < buttonNum; i++) {
