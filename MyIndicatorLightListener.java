@@ -1,5 +1,3 @@
-package org.lsmr.vending.hardware;
-
 public class MyIndicatorLightListener implements IndicatorLightListener {
 
 	@Override
