@@ -9,7 +9,7 @@ public class DeliveryListener implements DeliveryChuteListener {
 	
 	private VendingMachine vm;
 	
-	public DeliveryListener() {
+	public DeliveryListener(VendingMachine vm) {
 		this.vm = vm;
 	}
 
