@@ -1,39 +1,48 @@
-package ca.ucalgary.seng300.a1;
+
 
 import org.lsmr.vending.hardware.*;
 
-public class ButtonListener implements SelectionButtonListener{
+public class ButtonListener implements PushButtonListener{
 	
 	private VendingMachine vm;
 	private CReceptacleListener r;
+	private boolean on;
 	
 	public ButtonListener (VendingMachine vm,CReceptacleListener r) {
 		this.vm = vm;
 		this.r = r;
 	}
+	public boolean getState() {
+		return on;
+	}
 
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
+		on = true;
 	}
 
 	@Override
 	public void disabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
+		on = false;
 	}
 
 	@Override
-	public void pressed(SelectionButton button) {
+	public void pressed(PushButton button) {
 		int buttonNum = vm.getNumberOfSelectionButtons();
 		int index=-1;
 		for (int i = 0; i < buttonNum; i++) {
 			if (vm.getSelectionButton(i).equals(button)){
 				index = i;
 				break;
+				
 			}
 		}
 		
-		int cost = vm.getPopKindCost(index);
-		if (cost > r.getTotal()) {
-			System.out.print("Not enough cash\n");
+		int popCost = vm.getPopKindCost(index);
+		
+		//display that there is not enough credit to buy selected pop
+		if (r.getTotal() < popCost) {
+			vm.getDisplay().display("Not enough credit");
 			return;
 		}
 		else {
@@ -42,7 +51,7 @@ public class ButtonListener implements SelectionButtonListener{
 				vm.getCoinReceptacle().storeCoins();
 				return;
 			}catch(EmptyException e) {
-				System.out.print("Sorry, it's empty\n");
+				vm.getDisplay().display("Sorry, all out of that selection");
 				return;
 			}
 			catch(CapacityExceededException e) {
@@ -50,7 +59,7 @@ public class ButtonListener implements SelectionButtonListener{
 				return;
 			}
 			catch(DisabledException e) {
-				System.out.print("The vending machine is disabled.\n");
+				vm.getDisplay().display("The vending machine is disabled.");
 				return;
 			}
 		}

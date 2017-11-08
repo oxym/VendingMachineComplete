@@ -1,28 +1,32 @@
-
-
 import org.lsmr.vending.hardware.AbstractHardware;
 import org.lsmr.vending.hardware.AbstractHardwareListener;
-import org.lsmr.vending.hardware.Display;
-import org.lsmr.vending.hardware.DisplayListener;
+import org.lsmr.vending.hardware.IndicatorLight;
+import org.lsmr.vending.hardware.IndicatorLightListener;
 
-public class DListener implements DisplayListener{
+public class MyIndicatorLightListener implements IndicatorLightListener {
 
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void disabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void messageChange(Display display, String oldMessage, String newMessage) {
-		System.out.println(newMessage);
-		
+	public void activated(IndicatorLight light) {
+		System.out.println("Indicator activated");
+
+	}
+
+	@Override
+	public void deactivated(IndicatorLight light) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
