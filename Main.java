@@ -70,6 +70,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		s.close();
+		e.closeWriter();
 
 	}
 
