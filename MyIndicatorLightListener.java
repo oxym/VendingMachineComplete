@@ -25,8 +25,7 @@ public class MyIndicatorLightListener implements IndicatorLightListener {
 
 	@Override
 	public void deactivated(IndicatorLight light) {
-		// TODO Auto-generated method stub
-
+		System.out.println("Indicator decativated");
 	}
 
 }
