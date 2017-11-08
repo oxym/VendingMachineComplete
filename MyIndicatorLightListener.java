@@ -4,6 +4,12 @@ import org.lsmr.vending.hardware.IndicatorLight;
 import org.lsmr.vending.hardware.IndicatorLightListener;
 
 public class MyIndicatorLightListener implements IndicatorLightListener {
+	private VendingMahicne vm;
+	
+	public void MyIndicatorLightListener(Vending Machine vm) {
+		this.vm = vm;
+	}
+	
 
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {

@@ -24,6 +24,7 @@ public class Main {
 		vm.getDisplay().register(disListener);
 		vm.getCoinSlot().register(new CSlotListener(vm, true));
 		vm.getCoinReturn().register(new CReturnListener(vm, true));
+		vm.getIndicatorLight().register(new MyIndicatorLightListener(vm));
 
 		for (int i = 0; i < 6; i++) {
 			vm.getPopCanRack(i).register(new PCRListener());
