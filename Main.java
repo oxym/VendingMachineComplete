@@ -1,3 +1,5 @@
+package ca.ucalgary.seng300.a2;
+
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -12,14 +14,14 @@ import ca.ucalgary.seng300.a2.DeliveryListener;
 public class Main {
 
 	public static void main(String[] args) {
-		EventWriter e = new EventWriter("eventLog.txt");
+		EventWriter event = new EventWriter("eventLog.txt");
 		VendingMachine vm = new VendingMachine(new int[] { 1, 5, 10, 25, 100, 200 }, 6, 200, 10, 200, 200, 200);
 		// Set the prices for each respective pop
 		vm.configure(Arrays.asList("popA", "popB", "popC", "popD", "popE", "popF"),
 				Arrays.asList(100, 100, 100, 100, 150, 200));
 
 		CReceptacleListener crListener = new CReceptacleListener();
-		DListener disListener = new DListener(e);
+		DListener disListener = new DListener(event);
 		
 
 		// Register the listeners to their respective classes 
@@ -73,7 +75,8 @@ public class Main {
 			e.printStackTrace();
 		}
 		s.close();
-		e.closeWriter();
+		event.closeWriter();
+
 
 	}
 
