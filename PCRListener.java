@@ -1,3 +1,5 @@
+package ca.ucalgary.seng300.a2;
+
 
 
 import org.lsmr.vending.PopCan;

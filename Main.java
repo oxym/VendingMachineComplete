@@ -1,3 +1,5 @@
+package ca.ucalgary.seng300.a2;
+
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -5,26 +7,30 @@ import java.util.Scanner;
 import org.lsmr.vending.Coin;
 import org.lsmr.vending.hardware.VendingMachine;
 
+import ca.ucalgary.seng300.a2.DeliveryListener;
+
 //Test cases do not rely on Main
 
 public class Main {
 
 	public static void main(String[] args) {
+		EventWriter event = new EventWriter("eventLog.txt");
 		VendingMachine vm = new VendingMachine(new int[] { 1, 5, 10, 25, 100, 200 }, 6, 200, 10, 200, 200, 200);
 		// Set the prices for each respective pop
 		vm.configure(Arrays.asList("popA", "popB", "popC", "popD", "popE", "popF"),
 				Arrays.asList(100, 100, 100, 100, 150, 200));
 
 		CReceptacleListener crListener = new CReceptacleListener();
-		DListener disListener = new DListener();
+		DListener disListener = new DListener(event);
 		
 
-		// Register the listeners to their respective classes
+		// Register the listeners to their respective classes 
 		vm.getCoinReceptacle().register(crListener);
 		vm.getDisplay().register(disListener);
 		vm.getCoinSlot().register(new CSlotListener(vm, true));
 		vm.getCoinReturn().register(new CReturnListener(vm, true));
 		vm.getIndicatorLight().register(new MyIndicatorLightListener(vm));
+		vm.getDeliveryChute().register(new DeliveryListener(vm));
 
 		for (int i = 0; i < 6; i++) {
 			vm.getPopCanRack(i).register(new PCRListener());
@@ -70,6 +76,8 @@ public class Main {
 			e.printStackTrace();
 		}
 		s.close();
+		event.closeWriter();
+
 
 	}
 

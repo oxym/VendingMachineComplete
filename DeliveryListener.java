@@ -1,3 +1,5 @@
+package ca.ucalgary.seng300.a2;
+
 import org.lsmr.vending.hardware.AbstractHardware;
 import org.lsmr.vending.hardware.AbstractHardwareListener;
 import org.lsmr.vending.hardware.DeliveryChute;
@@ -9,13 +11,13 @@ public class DeliveryListener implements DeliveryChuteListener {
 	
 	private VendingMachine vm;
 	
-	public DeliveryListener() {
+	public DeliveryListener(VendingMachine vm) {
 		this.vm = vm;
 	}
 
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub 
 		
 	}
 
