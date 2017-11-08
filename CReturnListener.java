@@ -14,6 +14,11 @@ public class CReturnListener implements CoinReturnListener {
 		return on;
 	}
 	
+	public CReturnListener(VendingMachine vend, boolean state) {
+		vm = vend;
+		on = state;
+	}
+	
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
 		on = true;

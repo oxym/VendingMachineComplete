@@ -17,11 +17,13 @@ public class Main {
 
 		CReceptacleListener crListener = new CReceptacleListener();
 		DListener disListener = new DListener();
+		
 
 		// Register the listeners to their respective classes
 		vm.getCoinReceptacle().register(crListener);
 		vm.getDisplay().register(disListener);
-		vm.getCoinSlot().register(new CSlotListener());
+		vm.getCoinSlot().register(new CSlotListener(vm, true));
+		vm.getCoinReturn().register(new CReturnListener(vm, true));
 
 		for (int i = 0; i < 6; i++) {
 			vm.getPopCanRack(i).register(new PCRListener());
