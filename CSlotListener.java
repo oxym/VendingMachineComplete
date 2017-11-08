@@ -7,14 +7,16 @@ import org.lsmr.vending.hardware.*;
 public class CSlotListener implements CoinSlotListener{
 
 	private VendingMachine vm;
+	private EventWriter ew;
 	private boolean on;
 	
 	public boolean getState() {
 		return on;
 	}
 	
-	public CSlotListener(VendingMachine vend, boolean state) {
+	public CSlotListener(VendingMachine vend, EventWriter ew, boolean state) {
 		vm = vend;
+		this.ew = ew;
 		on = state;
 	}
 	
@@ -29,11 +31,13 @@ public class CSlotListener implements CoinSlotListener{
 	@Override
 	public void validCoinInserted(CoinSlot slot, Coin coin) {
 		vm.getDisplay().display(coin.getValue() + " coin inserted.\n");
+		ew.logEvent(coin.getValue() + " coin inserted");
 	}
 
 	@Override
 	public void coinRejected(CoinSlot slot, Coin coin) {
-		vm.getDisplay().display(coin.getValue() + "Coin Rejected.\n");		
+		vm.getDisplay().display(coin.getValue() + "Coin Rejected.\n");
+		ew.logEvent(coin.getValue() + "Coin Rejected.");
 	}
 	
 }

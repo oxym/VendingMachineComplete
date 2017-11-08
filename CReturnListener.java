@@ -10,14 +10,16 @@ import org.lsmr.vending.hardware.VendingMachine;
 public class CReturnListener implements CoinReturnListener {
 
 	private VendingMachine vm;
+	private EventWriter ew;
 	private boolean on;
 	
 	public boolean getState() {
 		return on;
 	}
 	
-	public CReturnListener(VendingMachine vend, boolean state) {
+	public CReturnListener(VendingMachine vend, EventWriter ew, boolean state) {
 		vm = vend;
+		this.ew = ew;
 		on = state;
 	}
 	
@@ -43,7 +45,7 @@ public class CReturnListener implements CoinReturnListener {
 	public void returnIsFull(CoinReturn coinReturn) {
 		coinReturn.disable(); //if the return is full, it should be prevented from returning more
 		vm.getDisplay().display("Coin return slot is full, please take your change");
-		
+		ew.logEvent("Coin return slot is full");
 
 	}
 

@@ -10,9 +10,11 @@ public class DeliveryListener implements DeliveryChuteListener {
 	private boolean isFull = false;
 	
 	private VendingMachine vm;
+	private EventWriter ew;
 	
 	public DeliveryListener(VendingMachine vm) {
 		this.vm = vm;
+		this.ew = ew
 	}
 
 	@Override
@@ -29,8 +31,7 @@ public class DeliveryListener implements DeliveryChuteListener {
 
 	@Override
 	public void itemDelivered(DeliveryChute chute) {
-		// TODO Auto-generated method stub
-		vm.getDisplay().display("Pop can vended");
+		vm.getDisplay().display("Pop can vended");	
 	}
 
 	@Override
