@@ -6,6 +6,12 @@ import org.lsmr.vending.hardware.IndicatorLight;
 import org.lsmr.vending.hardware.IndicatorLightListener;
 
 public class MyIndicatorLightListener implements IndicatorLightListener {
+	private VendingMahicne vm;
+	
+	public void MyIndicatorLightListener(Vending Machine vm) {
+		this.vm = vm;
+	}
+	
 
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
@@ -21,14 +27,13 @@ public class MyIndicatorLightListener implements IndicatorLightListener {
 
 	@Override
 	public void activated(IndicatorLight light) {
-		System.out.println("Indicator activated");
+		System.out.println("Indicator activated.");
 
 	}
 
 	@Override
 	public void deactivated(IndicatorLight light) {
-		// TODO Auto-generated method stub
-
+		System.out.println("Indicator decativated.");
 	}
 
 }
