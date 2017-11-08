@@ -10,13 +10,14 @@ import org.lsmr.vending.hardware.VendingMachine;
 public class Main {
 
 	public static void main(String[] args) {
+		EventWriter e = new EventWriter("eventLog.txt");
 		VendingMachine vm = new VendingMachine(new int[] { 1, 5, 10, 25, 100, 200 }, 6, 200, 10, 200, 200, 200);
 		// Set the prices for each respective pop
 		vm.configure(Arrays.asList("popA", "popB", "popC", "popD", "popE", "popF"),
 				Arrays.asList(100, 100, 100, 100, 150, 200));
 
 		CReceptacleListener crListener = new CReceptacleListener();
-		DListener disListener = new DListener();
+		DListener disListener = new DListener(e);
 		
 
 		// Register the listeners to their respective classes
