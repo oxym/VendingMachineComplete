@@ -59,7 +59,7 @@ public class ButtonListener implements PushButtonListener{
 				return;
 			}
 			catch(DisabledException e) {
-				System.out.print("The vending machine is disabled.\n");
+				vm.getDisplay().display("The vending machine is disabled.");
 				return;
 			}
 		}
