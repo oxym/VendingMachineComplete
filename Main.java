@@ -14,7 +14,7 @@ import ca.ucalgary.seng300.a2.DeliveryListener;
 public class Main {
 
 	public static void main(String[] args) {
-		EventWriter event = new EventWriter("eventLog.txt");
+		EventWriter ew = new EventWriter("eventLog.txt");
 		VendingMachine vm = new VendingMachine(new int[] { 1, 5, 10, 25, 100, 200 }, 6, 200, 10, 200, 200, 200);
 		// Set the prices for each respective pop
 		vm.configure(Arrays.asList("popA", "popB", "popC", "popD", "popE", "popF"),
@@ -27,10 +27,10 @@ public class Main {
 		// Register the listeners to their respective classes 
 		vm.getCoinReceptacle().register(crListener);
 		vm.getDisplay().register(disListener);
-		vm.getCoinSlot().register(new CSlotListener(vm, true));
-		vm.getCoinReturn().register(new CReturnListener(vm, true));
-		vm.getIndicatorLight().register(new MyIndicatorLightListener(vm));
-		vm.getDeliveryChute().register(new DeliveryListener(vm));
+		vm.getCoinSlot().register(new CSlotListener(vm, ew,true));
+		vm.getCoinReturn().register(new CReturnListener(vm, ew,true));
+		vm.getIndicatorLight().register(new MyIndicatorLightListener(vm,ew));
+		vm.getDeliveryChute().register(new DeliveryListener(vm,ew));
 
 		for (int i = 0; i < 6; i++) {
 			vm.getPopCanRack(i).register(new PCRListener());

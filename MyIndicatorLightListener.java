@@ -7,9 +7,11 @@ import org.lsmr.vending.hardware.IndicatorLightListener;
 
 public class MyIndicatorLightListener implements IndicatorLightListener {
 	private VendingMahicne vm;
+	private EventWriter ew;
 	
-	public void MyIndicatorLightListener(Vending Machine vm) {
+	public void MyIndicatorLightListener(Vending Machine vm, EventWriter ew) {
 		this.vm = vm;
+		this.ew = ew;
 	}
 	
 
@@ -27,13 +29,13 @@ public class MyIndicatorLightListener implements IndicatorLightListener {
 
 	@Override
 	public void activated(IndicatorLight light) {
-		System.out.println("Indicator activated.");
+		ew.logEvent("Indicator light is activated.");
 
 	}
 
 	@Override
 	public void deactivated(IndicatorLight light) {
-		System.out.println("Indicator decativated.");
+		ew.logEvent("Indicator decativated.");
 	}
 
 }
