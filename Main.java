@@ -22,7 +22,7 @@ public class Main {
 		DListener disListener = new DListener(e);
 		
 
-		// Register the listeners to their respective classes
+		// Register the listeners to their respective classes 
 		vm.getCoinReceptacle().register(crListener);
 		vm.getDisplay().register(disListener);
 		vm.getCoinSlot().register(new CSlotListener(vm, true));
