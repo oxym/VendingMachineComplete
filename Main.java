@@ -7,6 +7,8 @@ import java.util.Scanner;
 import org.lsmr.vending.Coin;
 import org.lsmr.vending.hardware.VendingMachine;
 
+import ca.ucalgary.seng300.a2.DeliveryListener;
+
 //Test cases do not rely on Main
 
 public class Main {
@@ -22,11 +24,12 @@ public class Main {
 		DListener disListener = new DListener(event);
 		
 
-		// Register the listeners to their respective classes
+		// Register the listeners to their respective classes 
 		vm.getCoinReceptacle().register(crListener);
 		vm.getDisplay().register(disListener);
 		vm.getCoinSlot().register(new CSlotListener(vm, true));
 		vm.getCoinReturn().register(new CReturnListener(vm, true));
+		vm.getDeliveryChute().register(new DeliveryListener(vm));
 
 		for (int i = 0; i < 6; i++) {
 			vm.getPopCanRack(i).register(new PCRListener());
@@ -73,6 +76,7 @@ public class Main {
 		}
 		s.close();
 		event.closeWriter();
+
 
 	}
 
