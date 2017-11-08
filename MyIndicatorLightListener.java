@@ -19,13 +19,13 @@ public class MyIndicatorLightListener implements IndicatorLightListener {
 
 	@Override
 	public void activated(IndicatorLight light) {
-		System.out.println("Indicator activated");
+		System.out.println("Indicator activated.");
 
 	}
 
 	@Override
 	public void deactivated(IndicatorLight light) {
-		System.out.println("Indicator decativated");
+		System.out.println("Indicator decativated.");
 	}
 
 }
