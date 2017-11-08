@@ -19,7 +19,7 @@ public class MyIndicatorLightListener implements IndicatorLightListener {
 
 	@Override
 	public void activated(IndicatorLight light) {
-		// TODO Auto-generated method stub
+		System.out.println("Indicator activated");
 
 	}
 
