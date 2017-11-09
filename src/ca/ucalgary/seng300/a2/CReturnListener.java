@@ -37,7 +37,8 @@ public class CReturnListener implements CoinReturnListener {
 
 	@Override
 	public void coinsDelivered(CoinReturn coinReturn, Coin[] coins) {
-		// TODO Auto-generated method stubs
+		vm.getDisplay().display("Coin return slot is full, please take your change");
+		ew.logEvent(coins + " returned");
 
 	}
 
