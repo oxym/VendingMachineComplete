@@ -21,7 +21,7 @@ public class Main {
 				Arrays.asList(100, 100, 100, 100, 150, 200));
 
 		CReceptacleListener crListener = new CReceptacleListener();
-		DListener disListener = new DListener(ew);
+		MyDisplayListener disListener = new MyDisplayListener(ew);
 		CReturnListener returnListener = new CReturnListener(vm, ew,true);
 		
 
