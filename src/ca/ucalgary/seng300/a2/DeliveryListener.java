@@ -12,9 +12,9 @@ public class DeliveryListener implements DeliveryChuteListener {
 	private VendingMachine vm;
 	private EventWriter ew;
 	
-	public DeliveryListener(VendingMachine vm) {
+	public DeliveryListener(VendingMachine vm, EventWriter ew) {
 		this.vm = vm;
-		this.ew = ew
+		this.ew = ew;
 	}
 
 	@Override

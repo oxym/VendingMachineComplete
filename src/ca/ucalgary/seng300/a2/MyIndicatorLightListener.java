@@ -4,12 +4,13 @@ import org.lsmr.vending.hardware.AbstractHardware;
 import org.lsmr.vending.hardware.AbstractHardwareListener;
 import org.lsmr.vending.hardware.IndicatorLight;
 import org.lsmr.vending.hardware.IndicatorLightListener;
+import org.lsmr.vending.hardware.VendingMachine;
 
 public class MyIndicatorLightListener implements IndicatorLightListener {
-	private VendingMahicne vm;
+	private VendingMachine vm;
 	private EventWriter ew;
 	
-	public void MyIndicatorLightListener(Vending Machine vm, EventWriter ew) {
+	public MyIndicatorLightListener(VendingMachine vm, EventWriter ew) {
 		this.vm = vm;
 		this.ew = ew;
 	}

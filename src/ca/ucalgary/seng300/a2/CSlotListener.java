@@ -36,7 +36,7 @@ public class CSlotListener implements CoinSlotListener{
 
 	@Override
 	public void coinRejected(CoinSlot slot, Coin coin) {
-		vm.getDisplay().display(coin.getValue() + "Coin Rejected.\n");
+		vm.getDisplay().display(coin.getValue() + " coin Rejected.\n");
 		ew.logEvent(coin.getValue() + "Coin Rejected.");
 	}
 	

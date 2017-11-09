@@ -21,15 +21,20 @@ public class Main {
 				Arrays.asList(100, 100, 100, 100, 150, 200));
 
 		CReceptacleListener crListener = new CReceptacleListener();
-		DListener disListener = new DListener(event);
+		DListener disListener = new DListener(ew);
+		CReturnListener returnListener = new CReturnListener(vm, ew,true);
 		
 
 		// Register the listeners to their respective classes 
 		vm.getCoinReceptacle().register(crListener);
 		vm.getDisplay().register(disListener);
 		vm.getCoinSlot().register(new CSlotListener(vm, ew,true));
-		vm.getCoinReturn().register(new CReturnListener(vm, ew,true));
-		vm.getIndicatorLight().register(new MyIndicatorLightListener(vm,ew));
+		
+		//below line is giving NullPointer exception
+		//vm.getCoinReturn().register(returnListener);
+		
+		//changed below line from getIndicatorLight (no such method)
+		vm.getExactChangeLight().register(new MyIndicatorLightListener(vm,ew));
 		vm.getDeliveryChute().register(new DeliveryListener(vm,ew));
 
 		for (int i = 0; i < 6; i++) {
@@ -76,7 +81,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		s.close();
-		event.closeWriter();
+		ew.closeWriter();
 
 
 	}
