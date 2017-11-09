@@ -20,8 +20,11 @@ public class Main {
 		vm.configure(Arrays.asList("popA", "popB", "popC", "popD", "popE", "popF"),
 				Arrays.asList(100, 100, 100, 100, 150, 200));
 
+
 		
 		DListener disListener = new DListener(ew);
+		MyDisplayListener disListener = new MyDisplayListener(ew);
+
 		CReturnListener returnListener = new CReturnListener(vm, ew,true);
 		
 
@@ -39,7 +42,7 @@ public class Main {
 
 		for (int i = 0; i < 6; i++) {
 			vm.getPopCanRack(i).register(new PCRListener());
-			vm.getSelectionButton(i).register(new ButtonListener(vm, crListener));
+			vm.getSelectionButton(i).register(new ButtonListener(vm, crListener, ew));
 		}
 
 		// Load the pop cans and have the coin racks be set to 0

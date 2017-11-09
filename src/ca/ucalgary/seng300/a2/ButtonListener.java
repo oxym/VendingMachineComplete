@@ -6,11 +6,13 @@ public class ButtonListener implements PushButtonListener{
 	
 	private VendingMachine vm;
 	private CReceptacleListener r;
+	private EventWriter ew;
 	private boolean on;
 	
-	public ButtonListener (VendingMachine vm,CReceptacleListener r) {
+	public ButtonListener (VendingMachine vm,CReceptacleListener r, EventWriter ew) {
 		this.vm = vm;
 		this.r = r;
+		this.ew = ew;
 	}
 	public boolean getState() {
 		return on;
@@ -29,6 +31,7 @@ public class ButtonListener implements PushButtonListener{
 	@Override
 	public void pressed(PushButton button) {
 		int buttonNum = vm.getNumberOfSelectionButtons();
+		ew.logEvent("Button " + buttonNum + " was pressed.");
 		int index=-1;
 		for (int i = 0; i < buttonNum; i++) {
 			if (vm.getSelectionButton(i).equals(button)){
