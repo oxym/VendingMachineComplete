@@ -20,7 +20,7 @@ public class Main {
 		vm.configure(Arrays.asList("popA", "popB", "popC", "popD", "popE", "popF"),
 				Arrays.asList(100, 100, 100, 100, 150, 200));
 
-		CReceptacleListener crListener = new CReceptacleListener();
+		
 		DListener disListener = new DListener(ew);
 		CReturnListener returnListener = new CReturnListener(vm, ew,true);
 		

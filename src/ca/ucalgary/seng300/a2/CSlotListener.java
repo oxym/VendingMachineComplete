@@ -8,6 +8,7 @@ public class CSlotListener implements CoinSlotListener{
 
 	private VendingMachine vm;
 	private EventWriter ew;
+	private Logic logic;
 	private boolean on;
 	
 	
@@ -15,10 +16,12 @@ public class CSlotListener implements CoinSlotListener{
 		return on;
 	}
 	
-	public CSlotListener(VendingMachine vend, EventWriter ew, boolean state) {
-		vm = vend;
+	public CSlotListener(VendingMachine vend, EventWriter ew, Logic logic, boolean state) {
+		this.vm = vend;
 		this.ew = ew;
+		this.logic = logic;
 		on = state;
+		
 	}
 	
 	@Override
