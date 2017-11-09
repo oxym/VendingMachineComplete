@@ -39,7 +39,7 @@ public class Main {
 
 		for (int i = 0; i < 6; i++) {
 			vm.getPopCanRack(i).register(new PCRListener());
-			vm.getSelectionButton(i).register(new ButtonListener(vm, crListener));
+			vm.getSelectionButton(i).register(new ButtonListener(vm, crListener, ew));
 		}
 
 		// Load the pop cans and have the coin racks be set to 0
