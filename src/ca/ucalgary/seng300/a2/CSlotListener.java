@@ -10,6 +10,7 @@ public class CSlotListener implements CoinSlotListener{
 	private EventWriter ew;
 	private boolean on;
 	
+	
 	public boolean getState() {
 		return on;
 	}
@@ -30,8 +31,10 @@ public class CSlotListener implements CoinSlotListener{
 
 	@Override
 	public void validCoinInserted(CoinSlot slot, Coin coin) {
-		vm.getDisplay().display(coin.getValue() + " coin inserted.\n");
-		ew.logEvent(coin.getValue() + " coin inserted");
+		
+		vm.getDisplay().display("Credit: ");
+	
+		ew.logEvent(coin.getValue() + " coin inserted. Total credit: " );
 	}
 
 	@Override
