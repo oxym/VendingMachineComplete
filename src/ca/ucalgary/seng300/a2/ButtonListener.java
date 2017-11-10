@@ -30,17 +30,17 @@ public class ButtonListener implements PushButtonListener{
 
 	@Override
 	public void pressed(PushButton button) {
+		//find the button number that was pressed
 		int buttonNum = vm.getNumberOfSelectionButtons();
-		ew.logEvent("Button " + buttonNum + " was pressed.");
 		int index=-1;
-		for (int i = 0; i < buttonNum; i++) {
+		for (int i = 0; i <= buttonNum; i++) {
 			if (vm.getSelectionButton(i).equals(button)){
 				index = i;
 				break;
-				
 			}
 		}
 		
+		ew.logEvent("Button " + index + " was pressed.");
 		int popCost = vm.getPopKindCost(index);
 		
 		//display that there is not enough credit to buy selected pop
