@@ -20,34 +20,11 @@ public class Main {
 		vm.configure(Arrays.asList("popA", "popB", "popC", "popD", "popE", "popF"),
 				Arrays.asList(100, 100, 100, 100, 150, 200));
 
-
-		
-		DListener disListener = new DListener(ew);
-		MyDisplayListener disListener = new MyDisplayListener(ew);
-
-		CReturnListener returnListener = new CReturnListener(vm, ew,true);
-		
-
-		// Register the listeners to their respective classes 
-		vm.getCoinReceptacle().register(crListener);
-		vm.getDisplay().register(disListener);
-		vm.getCoinSlot().register(new CSlotListener(vm, ew,true));
-		
-		//below line is giving NullPointer exception
-		//vm.getCoinReturn().register(returnListener);
-		
-		//changed below line from getIndicatorLight (no such method)
-		vm.getExactChangeLight().register(new MyIndicatorLightListener(vm,ew));
-		vm.getDeliveryChute().register(new DeliveryListener(vm,ew));
-
-		for (int i = 0; i < 6; i++) {
-			vm.getPopCanRack(i).register(new PCRListener());
-			vm.getSelectionButton(i).register(new ButtonListener(vm, crListener, ew));
-		}
-
 		// Load the pop cans and have the coin racks be set to 0
 		vm.loadPopCans(10, 10, 10, 10, 10, 10);
 		vm.loadCoins(0, 0, 0, 0, 0, 0);
+		
+		Logic logic = new Logic(vm, ew);
 
 		System.out.println(
 				"\"insert 1, 5, 10, 25, 100 or 200\" to insert a coin. \"press 0, 1, 2, 3, 4 or 5\" to dispense a pop can. \"off\" to quit.");
@@ -61,13 +38,13 @@ public class Main {
 				String[] str = st.split("\\s+");
 				if (str[0].trim().equals("insert")) {
 					// Add coin value to the receptacle, if legal.
-					vm.getCoinSlot().addCoin(new Coin(Integer.parseInt(str[1])));
-					System.out.println("Coins: " + crListener.getTotal());
+					logic.insertCoin(new Coin(Integer.parseInt(str[1])));
+
 				} else if (str[0].equals("press")) {
 					// If button entered does not exist, it will throw a
 					// ArrayIndexOutOfBoundsException, which will then be caught.
 					try {
-						vm.getSelectionButton(Integer.parseInt(str[1])).press();
+						logic.pressButton(Integer.parseInt(str[1]));
 					} catch (ArrayIndexOutOfBoundsException e) {
 						System.out.println("Invalid Button");
 					}

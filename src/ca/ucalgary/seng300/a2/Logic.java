@@ -8,7 +8,7 @@ import org.lsmr.vending.hardware.VendingMachine;
 public class Logic {
 	private VendingMachine vm;
 	private EventWriter ew;
-	private int credit;
+	private int credit = 0;
 	
 	//listeners
 	//private ButtonListener buttonListener;
@@ -44,7 +44,10 @@ public class Logic {
 		vm.getCoinReceptacle().register(receptacleListener);
 		vm.getDisplay().register(displayListener);
 		vm.getCoinSlot().register(slotListener);
-		vm.getCoinReturn().register(returnListener);
+		
+		//hardware bug:
+		//vm.getCoinReturn().register(returnListener);
+		
 		vm.getExactChangeLight().register(exactChangeListener);
 		vm.getOutOfOrderLight().register(outOfOrderListener);
 		vm.getDeliveryChute().register(deliveryListener);
@@ -81,7 +84,7 @@ public class Logic {
 	}
 	
 	public void changeCredit(int amount) {
-		credit =+ amount;
+		credit = credit +  amount;
 	}
 
 	

@@ -33,7 +33,7 @@ public class DeliveryListener implements DeliveryChuteListener {
 
 	@Override
 	public void itemDelivered(DeliveryChute chute) {
-		vm.getDisplay().display("Pop can vended");	
+		ew.logEvent("Pop can vended");	
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class PCRListener implements PopCanRackListener {
 	@Override
 	public void popCanRemoved(PopCanRack popCanRack, PopCan popCan) {
 		if(!isEmpty) {
-			System.out.print(popCan.getName() + " was vended.\n");
+			ew.logEvent(popCan.getName() + " was vended.\n");
 		}
 	}
 

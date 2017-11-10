@@ -22,7 +22,8 @@ public class CReturnListener implements CoinReturnListener {
 		this.vm = vend;
 		this.ew = ew;
 		this.logic = logic;
-		off = vm.getCoinReturn().isDisabled();
+		//hardware bug
+		//off = vm.getCoinReturn().isDisabled();
 	}
 	
 	@Override
