@@ -37,7 +37,7 @@ public class CSlotListener implements CoinSlotListener{
 		
 		vm.getDisplay().display("Credit: " + logic.getCredit());
 	
-		ew.logEvent(coin.getValue() + " coin inserted. Total credit: " );
+		ew.logEvent(coin.getValue() + " coin inserted. Total credit: " + logic.getCredit());
 	}
 
 	@Override

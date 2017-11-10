@@ -65,9 +65,16 @@ public class Logic {
 		
 	}
 	
-	public void vend(PushButton button) {
+	public void pressButton(int button) {
+		vm.getSelectionButton(button).press();
 		
 	}
+	
+	public void returnCoins() {
+		
+		//TODO
+	}
+	
 	
 	public int getCredit() {
 		return credit;
