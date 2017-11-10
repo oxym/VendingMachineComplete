@@ -29,8 +29,16 @@ public class Logic {
 		ew = write;
 		credit = 0;
 		
-		
-		
+		buttonListener = new ButtonListener(vm, ew, this);
+		returnListener = new CReturnListener(vm, ew, this);
+		slotListener = new CSlotListener(vm, ew, this);
+		deliveryListener = new DeliveryListener(vm, ew, this);
+		displayListener = new DListener(vm, ew, this);
+		exactChangeListener = new MyIndicatorLightListener(vm, ew, this);
+		outOfOrderListener = new MyIndicatorLightListener(vm, ew, this);
+		popCanRackListener = new PCRListener(vm, ew, this);
+		popListener = new PopListener(vm, ew, this);
+		receptacleListener = new ReceptacleListener(vm, ew, this);
 		
 		
 	}
@@ -44,4 +52,5 @@ public class Logic {
 		
 	}
 
+	
 }

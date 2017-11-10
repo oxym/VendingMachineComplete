@@ -11,27 +11,29 @@ public class CReturnListener implements CoinReturnListener {
 
 	private VendingMachine vm;
 	private EventWriter ew;
-	private boolean on;
+	private Logic logic;
+	private boolean off;
 	
 	public boolean getState() {
-		return on;
+		return off;
 	}
 	
-	public CReturnListener(VendingMachine vend, EventWriter ew, boolean state) {
-		vm = vend;
+	public CReturnListener(VendingMachine vend, EventWriter ew, Logic logic) {
+		this.vm = vend;
 		this.ew = ew;
-		on = state;
+		this.logic = logic;
+		off = vm.getCoinReturn().isDisabled();
 	}
 	
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		on = true;
+		off = false;
 
 	}
 
 	@Override
 	public void disabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		on = false;
+		off = true;
 
 	}
 

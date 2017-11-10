@@ -9,18 +9,18 @@ public class CSlotListener implements CoinSlotListener{
 	private VendingMachine vm;
 	private EventWriter ew;
 	private Logic logic;
-	private boolean on;
+	private boolean off;
 	
 	
 	public boolean getState() {
-		return on;
+		return off;
 	}
 	
-	public CSlotListener(VendingMachine vend, EventWriter ew, Logic logic, boolean state) {
+	public CSlotListener(VendingMachine vend, EventWriter ew, Logic logic) {
 		this.vm = vend;
 		this.ew = ew;
 		this.logic = logic;
-		on = state;
+		off = vm.getCoinSlot().isDisabled();
 		
 	}
 	
