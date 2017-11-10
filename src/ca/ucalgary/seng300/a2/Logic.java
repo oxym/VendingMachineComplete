@@ -39,6 +39,7 @@ public class Logic {
 		outOfOrderListener = new MyIndicatorLightListener(vm, ew, this);
 		receptacleListener = new ReceptacleListener(vm, ew, this);
 		
+		
 		// Register the listeners to their respective classes 
 		vm.getCoinReceptacle().register(receptacleListener);
 		vm.getDisplay().register(displayListener);
