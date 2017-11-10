@@ -9,7 +9,6 @@ import java.util.*;
 
 public class EventWriter {
 	private BufferedWriter writer;
-	private Calendar cal = Calendar.getInstance();
     private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 	public EventWriter(String file) {
 		 try {
@@ -21,7 +20,7 @@ public class EventWriter {
 
 	public void logEvent(String event) {
 		try {
-			writer.write("(" + sdf.format(cal.getTime()) + ") " + event + "\n");
+			writer.write("(" + sdf.format(System.currentTimeMillis()) + ") " + event + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
