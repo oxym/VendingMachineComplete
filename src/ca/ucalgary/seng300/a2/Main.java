@@ -41,9 +41,9 @@ public class Main {
 					thread2 = new Thread(() -> {
 					    try {
 					    	while(true) {
-					    		System.out.println("Hi there!");
+					    		logic.getDisplay().display("Hi there!");
 					    		Thread.sleep(5 * 1000);
-					    		System.out.println("");
+					    		logic.getDisplay().display("");
 					    		Thread.sleep(10*1000);
 					    	}
 					    }catch(InterruptedException weCanIgnoreThisException){}
