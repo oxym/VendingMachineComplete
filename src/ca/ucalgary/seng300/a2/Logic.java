@@ -15,7 +15,7 @@ public class Logic {
 	private CReturnListener returnListener;
 	private CSlotListener slotListener;
 	private DeliveryListener deliveryListener;
-	private DListener displayListener;
+	private MyDisplayListener displayListener;
 	private MyIndicatorLightListener exactChangeListener;
 	private MyIndicatorLightListener outOfOrderListener;
 	private PCRListener popCanRackListener;
@@ -33,7 +33,7 @@ public class Logic {
 		returnListener = new CReturnListener(vm, ew, this);
 		slotListener = new CSlotListener(vm, ew, this);
 		deliveryListener = new DeliveryListener(vm, ew, this);
-		displayListener = new DListener(vm, ew, this);
+		displayListener = new MyDisplayListener(vm, ew, this);
 		exactChangeListener = new MyIndicatorLightListener(vm, ew, this);
 		outOfOrderListener = new MyIndicatorLightListener(vm, ew, this);
 		popCanRackListener = new PCRListener(vm, ew, this);
@@ -50,10 +50,10 @@ public class Logic {
 		
 		vm.getExactChangeLight().register(exactChangeListener);
 		vm.getOutOfOrderLight().register(outOfOrderListener);
-		vm.getDeliveryChute().register(new DeliveryListener(vm,ew));
+		vm.getDeliveryChute().register(deliveryListener);
 
 		for (int i = 0; i < 6; i++) {
-			vm.getPopCanRack(i).register(new PCRListener());
+			vm.getPopCanRack(i).register(new PCRListener(vm, ew, this));
 			vm.getSelectionButton(i).register(new ButtonListener(vm, ew, this));
 		}
 

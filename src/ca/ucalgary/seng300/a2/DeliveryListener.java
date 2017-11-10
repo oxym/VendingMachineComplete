@@ -11,10 +11,12 @@ public class DeliveryListener implements DeliveryChuteListener {
 	
 	private VendingMachine vm;
 	private EventWriter ew;
+	private Logic logic;
 	
-	public DeliveryListener(VendingMachine vm, EventWriter ew) {
+	public DeliveryListener(VendingMachine vm, EventWriter ew, Logic logic) {
 		this.vm = vm;
 		this.ew = ew;
+		this.logic = logic;
 	}
 
 	@Override

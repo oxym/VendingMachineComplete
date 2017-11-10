@@ -5,12 +5,18 @@ import org.lsmr.vending.hardware.AbstractHardware;
 import org.lsmr.vending.hardware.AbstractHardwareListener;
 import org.lsmr.vending.hardware.Display;
 import org.lsmr.vending.hardware.DisplayListener;
+import org.lsmr.vending.hardware.VendingMachine;
 
 public class DListener implements DisplayListener{
 
-	private EventWriter e;
-	public DListener (EventWriter e) {
-		this.e = e;
+	private VendingMachine vm;
+	private EventWriter ew;
+	private Logic logic;
+	
+	public DListener (VendingMachine vm, EventWriter ew, Logic logic) {
+		this.ew = ew;
+		this.vm = vm;
+		this.logic = logic;
 	}
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
@@ -26,7 +32,7 @@ public class DListener implements DisplayListener{
 	@Override
 	public void messageChange(Display display, String oldMessage, String newMessage) {
 		System.out.println(newMessage);
-		e.logEvent("\"" + newMessage + "\" was displayed");
+		ew.logEvent("\"" + newMessage + "\" was displayed");
 	}
 
 }

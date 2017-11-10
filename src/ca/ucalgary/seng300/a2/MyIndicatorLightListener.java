@@ -9,10 +9,12 @@ import org.lsmr.vending.hardware.VendingMachine;
 public class MyIndicatorLightListener implements IndicatorLightListener {
 	private VendingMachine vm;
 	private EventWriter ew;
+	private Logic logic;
 	
-	public MyIndicatorLightListener(VendingMachine vm, EventWriter ew) {
+	public MyIndicatorLightListener(VendingMachine vm, EventWriter ew, Logic logic) {
 		this.vm = vm;
 		this.ew = ew;
+		this.logic = logic;
 	}
 	
 

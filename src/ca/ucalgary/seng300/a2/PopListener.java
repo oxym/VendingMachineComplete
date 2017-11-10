@@ -6,6 +6,15 @@ import org.lsmr.vending.hardware.*;
 
 public class PopListener implements PopCanRackListener{
 
+	private VendingMachine vm;
+	private EventWriter ew;
+	private Logic logic;
+	
+	public PopListener (VendingMachine vm, EventWriter ew, Logic logic) {
+		this.ew = ew;
+		this.vm = vm;
+		this.logic = logic;
+	}
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
 		// TODO Auto-generated method stub
