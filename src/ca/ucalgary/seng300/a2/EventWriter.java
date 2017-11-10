@@ -21,7 +21,7 @@ public class EventWriter {
 
 	public void logEvent(String event) {
 		try {
-			writer.write("(" + sdf.format(cal.getTime()) + ") " + event + "\n");
+			writer.write("(" + sdf.format(System.currentTimeMillis()) + ") " + event + "\n");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
