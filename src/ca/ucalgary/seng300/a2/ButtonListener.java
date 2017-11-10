@@ -5,27 +5,27 @@ import org.lsmr.vending.hardware.*;
 public class ButtonListener implements PushButtonListener{
 	
 	private VendingMachine vm;
-	private CReceptacleListener r;
 	private EventWriter ew;
-	private boolean on;
+	private Logic logic;
+	private boolean off;
 	
-	public ButtonListener (VendingMachine vm,CReceptacleListener r, EventWriter ew) {
+	public ButtonListener (VendingMachine vm, EventWriter ew, Logic logic) {
 		this.vm = vm;
-		this.r = r;
+		this.logic = logic;
 		this.ew = ew;
 	}
 	public boolean getState() {
-		return on;
+		return off;
 	}
 
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		on = true;
+		off = false;
 	}
 
 	@Override
 	public void disabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		on = false;
+		off = true;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class ButtonListener implements PushButtonListener{
 		int popCost = vm.getPopKindCost(index);
 		
 		//display that there is not enough credit to buy selected pop
-		if (r.getTotal() < popCost) {
+		if (logic.getCredit() < popCost) {
 			vm.getDisplay().display("Not enough credit");
 			return;
 		}

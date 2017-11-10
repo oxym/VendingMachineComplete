@@ -35,7 +35,7 @@ public class CSlotListener implements CoinSlotListener{
 	@Override
 	public void validCoinInserted(CoinSlot slot, Coin coin) {
 		
-		vm.getDisplay().display("Credit: ");
+		vm.getDisplay().display("Credit: " + logic.);
 	
 		ew.logEvent(coin.getValue() + " coin inserted. Total credit: " );
 	}

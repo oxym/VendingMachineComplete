@@ -40,6 +40,23 @@ public class Logic {
 		popListener = new PopListener(vm, ew, this);
 		receptacleListener = new ReceptacleListener(vm, ew, this);
 		
+		// Register the listeners to their respective classes 
+		vm.getCoinReceptacle().register(receptacleListener);
+		vm.getDisplay().register(displayListener);
+		vm.getCoinSlot().register(slotListener);
+		
+		//below line is giving NullPointer exception
+		//vm.getCoinReturn().register(returnListener);
+		
+		vm.getExactChangeLight().register(exactChangeListener);
+		vm.getOutOfOrderLight().register(outOfOrderListener);
+		vm.getDeliveryChute().register(new DeliveryListener(vm,ew));
+
+		for (int i = 0; i < 6; i++) {
+			vm.getPopCanRack(i).register(new PCRListener());
+			vm.getSelectionButton(i).register(new ButtonListener(vm, ew, this));
+		}
+
 		
 	}
 	
@@ -50,6 +67,10 @@ public class Logic {
 	
 	public void vend(PushButton button) {
 		
+	}
+	
+	public int getCredit() {
+		return credit;
 	}
 
 	
