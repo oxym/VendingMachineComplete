@@ -13,6 +13,7 @@ import ca.ucalgary.seng300.a2.DeliveryListener;
 
 public class Main {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		EventWriter ew = new EventWriter("eventLog.txt");
 		VendingMachine vm = new VendingMachine(new int[] { 1, 5, 10, 25, 100, 200 }, 6, 200, 10, 200, 200, 200);
@@ -29,12 +30,28 @@ public class Main {
 		System.out.println(
 				"\"insert 1, 5, 10, 25, 100 or 200\" to insert a coin. \"press 0, 1, 2, 3, 4 or 5\" to dispense a pop can. \"off\" to quit.");
 		System.out.println("popA = 100, popB = 100, popC = 100, popD = 100, popE = 150, popF = 200");
-
+		
+		Thread thread1 = Thread.currentThread();
+		Thread thread2 = null;
 		Scanner s = new Scanner(System.in);
 		String st;
 		try {
 			while (true) {
+				if(logic.getCredit() == 0) {
+					thread2 = new Thread(() -> {
+					    try {
+					    	while(true) {
+					    		System.out.println("Hi there!");
+					    		Thread.sleep(5 * 1000);
+					    		System.out.println("");
+					    		Thread.sleep(10*1000);
+					    	}
+					    }catch(InterruptedException weCanIgnoreThisException){}
+					});
+					thread2.start();
+				}
 				st = s.nextLine();
+				thread2.stop();
 				String[] str = st.split("\\s+");
 				if (str[0].trim().equals("insert")) {
 					// Add coin value to the receptacle, if legal.
