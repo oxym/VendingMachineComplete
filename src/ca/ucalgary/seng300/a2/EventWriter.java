@@ -9,7 +9,6 @@ import java.util.*;
 
 public class EventWriter {
 	private BufferedWriter writer;
-	private Calendar cal = Calendar.getInstance();
     private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 	public EventWriter(String file) {
 		 try {
