@@ -21,7 +21,7 @@ public class Logic {
 	private CSlotListener slotListener;
 	private DeliveryListener deliveryListener;
 	private MyDisplayListener displayListener;
-	private MyCoinRackListener coinRackListener;
+	//private MyCoinRackListener coinRackListener;
 	private ExactChangeLightListener exactChangeListener;
 	private OutOfOrderLightListener outOfOrderListener;
 	
@@ -43,7 +43,7 @@ public class Logic {
 		exactChangeListener = new ExactChangeLightListener(vm, ew, this);
 		outOfOrderListener = new OutOfOrderLightListener(vm, ew, this);
 		receptacleListener = new ReceptacleListener(vm, ew, this);
-		coinRackListener = new MyCoinRackListener(vm, ew, this);
+		//coinRackListener = new MyCoinRackListener(vm, ew, this);
 		
 		
 		// Register the listeners to their respective classes 
@@ -54,6 +54,10 @@ public class Logic {
 		vm.getExactChangeLight().register(exactChangeListener);
 		vm.getOutOfOrderLight().register(outOfOrderListener);
 		vm.getDeliveryChute().register(deliveryListener);
+		
+		for (int i = 0; i< vm.getNumberOfCoinRacks(); ++i) {
+			vm.getCoinRack(i).register(new MyCoinRackLister(vm, ew, this));
+		}
 		
 
 		for (int i = 0; i < vm.getNumberOfPopCanRacks(); i++) {
@@ -83,12 +87,12 @@ public class Logic {
 	
 	public void insertCoin(Coin coin) throws DisabledException {
 		vm.getCoinSlot().addCoin(coin);
-		//Check if coinRack is full
 		
 	}
 	
 	public void pressButton(int button) {
 		vm.getSelectionButton(button).press();
+		//Check if vm still has pop
 		
 	}
 	
