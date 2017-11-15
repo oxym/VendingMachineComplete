@@ -1,8 +1,10 @@
 package ca.ucalgary.seng300.a2;
 
 import org.lsmr.vending.Coin;
+import org.lsmr.vending.hardware.CapacityExceededException;
 import org.lsmr.vending.hardware.DisabledException;
 import org.lsmr.vending.hardware.Display;
+import org.lsmr.vending.hardware.EmptyException;
 import org.lsmr.vending.hardware.PushButton;
 import org.lsmr.vending.hardware.VendingMachine;
 
