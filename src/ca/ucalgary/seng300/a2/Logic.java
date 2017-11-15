@@ -66,6 +66,7 @@ public class Logic {
 	
 	public void insertCoin(Coin coin) throws DisabledException {
 		vm.getCoinSlot().addCoin(coin);
+		//Check if coinRack is full
 		
 	}
 	
