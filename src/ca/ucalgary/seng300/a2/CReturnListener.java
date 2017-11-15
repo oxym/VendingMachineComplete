@@ -40,7 +40,7 @@ public class CReturnListener implements CoinReturnListener {
 	@Override
 	public void coinsDelivered(CoinReturn coinReturn, Coin[] coins) {
 		for(int i = 0; i < coins.length; i++) {
-			vm.getDisplay().display(coins[i].getValue() + "Cent Coin Dispensed");
+			vm.getDisplay().display(coins[i].getValue() + " Coin Dispensed");
 		}
 
 		
