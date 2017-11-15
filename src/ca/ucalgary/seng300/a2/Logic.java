@@ -5,6 +5,7 @@ import org.lsmr.vending.hardware.CapacityExceededException;
 import org.lsmr.vending.hardware.DisabledException;
 import org.lsmr.vending.hardware.Display;
 import org.lsmr.vending.hardware.EmptyException;
+import org.lsmr.vending.hardware.IndicatorLight;
 import org.lsmr.vending.hardware.VendingMachine;
 
 public class Logic {
@@ -125,15 +126,16 @@ public class Logic {
 			}
 			else if(credit >= coinKinds[coinKinds.length-1]) {
 				i++;
-			}
-			else if(credit == 0) {
-				vm.getExactChangeLight().deactivate();
+			}else if (credit == 0) {
 				break;
 			}
-			else {
-				vm.getExactChangeLight().activate();
-				break;
-			}
+			
+		}
+		if(credit == 0) {
+			vm.getExactChangeLight().deactivate();
+		}
+		else {
+			vm.getExactChangeLight().activate();
 		}
 	}
 	
@@ -148,6 +150,16 @@ public class Logic {
 	
 	public Display getDisplay() {
 		return vm.getDisplay();
+	}
+	
+	public IndicatorLight getLight(String light) {
+		if(light.equals("exact change")) {
+			return vm.getExactChangeLight();
+		}else if (light.equals("out of order")) {
+			return vm.getOutOfOrderLight();
+		}else {
+			return null;
+		}
 	}
 
 	public void setOutofOrder() {

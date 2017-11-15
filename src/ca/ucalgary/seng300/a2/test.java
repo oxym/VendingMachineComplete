@@ -1,6 +1,7 @@
 package ca.ucalgary.seng300.a2;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -146,6 +147,20 @@ public class test {
 		}
 		assertTrue(thrown);
 	}
+	
+	@Test
+	public void testExactChange() {
+		try {
+			logic.insertCoin(new Coin(200));
+		} catch (DisabledException e) {
+			fail();
+		}
+		
+		logic.pressButton(4);
+		assertEquals(50, logic.getCredit());
+		assertTrue(logic.getLight("exact change").isActive());
+		
+	}
 
 	// Tests to see if all the buttons work as intended given enough money.
 	@Test
@@ -190,7 +205,7 @@ public class test {
 		}
 		assertEquals(300, logic.getCredit());
 		logic.pressButton(4);
-		assertEquals(0, logic.getCredit());
+		assertEquals(50, logic.getCredit());
 
 		try {
 			logic.insertCoin(new Coin(200));
@@ -198,10 +213,7 @@ public class test {
 			fail();
 		}
 		logic.pressButton(5);
-		assertEquals(
-				"popA was vended.\nCoins removed from receptacle.\npopB was vended.\nCoins removed from receptacle.\npopC was vended.\nCoins removed from receptacle.\npopD was vended.\nCoins removed from receptacle.\npopE was vended.\nCoins removed from receptacle.\npopF was vended.\nCoins removed from receptacle.\n",
-				outContent.toString());
-		assertEquals(0, logic.getCredit());
+		assertEquals(50, logic.getCredit());
 	}
 
 	// Tests such that if a user adds too little money,and presses a button, the
