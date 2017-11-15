@@ -20,6 +20,8 @@ public class Logic {
 	private CSlotListener slotListener;
 	private DeliveryListener deliveryListener;
 	private MyDisplayListener displayListener;
+
+	//private MyCoinRackListener coinRackListener;
 	private ExactChangeLightListener exactChangeListener;
 	private OutOfOrderLightListener outOfOrderListener;
 	
@@ -41,6 +43,8 @@ public class Logic {
 		exactChangeListener = new ExactChangeLightListener(vm, ew, this);
 		outOfOrderListener = new OutOfOrderLightListener(vm, ew, this);
 		receptacleListener = new ReceptacleListener(vm, ew, this);
+
+		//coinRackListener = new MyCoinRackListener(vm, ew, this);
 		
 		
 		// Register the listeners to their respective classes 
@@ -51,6 +55,10 @@ public class Logic {
 		vm.getExactChangeLight().register(exactChangeListener);
 		vm.getOutOfOrderLight().register(outOfOrderListener);
 		vm.getDeliveryChute().register(deliveryListener);
+		
+		for (int i = 0; i< vm.getNumberOfCoinRacks(); ++i) {
+			vm.getCoinRack(i).register(new MyCoinRackLister(vm, ew, this));
+		}
 		
 
 		for (int i = 0; i < vm.getNumberOfPopCanRacks(); i++) {
@@ -80,12 +88,19 @@ public class Logic {
 	
 	public void insertCoin(Coin coin) throws DisabledException {
 		vm.getCoinSlot().addCoin(coin);
-		//Check if coinRack is full
 		
 	}
 	
 	public void pressButton(int button) {
 		vm.getSelectionButton(button).press();
+		//Check if vm still has pop
+		int hasPop = 0;
+		for(int i = 0; i < vm.getNumberOfPopCanRacks(); ++i) {
+			if(vm.getPopCanRack(i).size()>0) hasPop = 1;
+		}
+		if(!hasPop) {
+			vm.getOutOfOrderLight().activate();
+		}
 		
 	}
 	
@@ -108,22 +123,17 @@ public class Logic {
 				}
 
 			}
-			else if(credit > coinKinds[coinKinds.length-1]) {
+			else if(credit >= coinKinds[coinKinds.length-1]) {
 				i++;
 			}
-			else {
-				vm.getOutOfOrderLight().activate();
-				break;
-				//Should never happen
-			}
-		}
-		if(credit == 0) {
-			if(vm.getExactChangeLight().equals(true)) {
+			else if(credit == 0) {
 				vm.getExactChangeLight().deactivate();
+				break;
 			}
-		}
-		else {
-			vm.getExactChangeLight().activate();
+			else {
+				vm.getExactChangeLight().activate();
+				break;
+			}
 		}
 	}
 	

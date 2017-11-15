@@ -22,8 +22,7 @@ public class MyCoinRackListener implements CoinRackListener {
 
 	@Override
 	public void coinsFull(CoinRack rack) {
-		// TODO Auto-generated method stub
-
+		vm.getOutOfOrderLight().activate();
 	}
 
 	@Override

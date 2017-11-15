@@ -57,8 +57,8 @@ public class ButtonListener implements PushButtonListener{
 		}
 		else {
 			try {
-				vm.getPopCanRack(index).dispensePopCan();
 				logic.changeCredit(-popCost);
+				vm.getPopCanRack(index).dispensePopCan();
 				logic.returnCoins();
 				return;
 			}catch(EmptyException e) {
