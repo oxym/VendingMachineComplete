@@ -19,25 +19,27 @@ public class OutOfOrderLightListener implements IndicatorLightListener  {
 	}
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		// TODO Auto-generated method stub
+		//Does nothing yet
 		
 	}
 
 	@Override
 	public void disabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {
-		// TODO Auto-generated method stub
+		//Does nothing yet
 		
 	}
 
 	@Override
 	public void activated(IndicatorLight light) {
-		// TODO Auto-generated method stub
+		vm.getDisplay().display("Out of Order");
+		logic.setOutofOrder();
+		ew.logEvent("Out of order light on.");
 		
 	}
 
 	@Override
 	public void deactivated(IndicatorLight light) {
-		// TODO Auto-generated method stub
+		//Don't have to worry about this yet
 		
 	}
 	
