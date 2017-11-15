@@ -33,7 +33,7 @@ public class ReceptacleListener implements CoinReceptacleListener{
 
 	@Override
 	public void coinAdded(CoinReceptacle receptacle, Coin coin) {
-		// TODO Auto-generated method stub
+		vm.getCoinReceptacle().storeCoins();
 		
 	}
 
@@ -57,7 +57,7 @@ public class ReceptacleListener implements CoinReceptacleListener{
 
 	@Override
 	public void coinsUnloaded(CoinReceptacle receptacle, Coin... coins) {
-		// TODO Auto-generated method stub
+		vm.getCoinReceptacle().storeCoins();
 		
 	}
 	
