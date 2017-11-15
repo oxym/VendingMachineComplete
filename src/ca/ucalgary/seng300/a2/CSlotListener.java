@@ -2,7 +2,11 @@ package ca.ucalgary.seng300.a2;
 
 
 import org.lsmr.vending.Coin;
-import org.lsmr.vending.hardware.*;
+import org.lsmr.vending.hardware.AbstractHardware;
+import org.lsmr.vending.hardware.AbstractHardwareListener;
+import org.lsmr.vending.hardware.CoinSlot;
+import org.lsmr.vending.hardware.CoinSlotListener;
+import org.lsmr.vending.hardware.VendingMachine;
 
 public class CSlotListener implements CoinSlotListener{
 

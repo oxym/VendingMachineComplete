@@ -9,6 +9,7 @@ import org.lsmr.vending.hardware.CapacityExceededException;
 import org.lsmr.vending.hardware.CoinReceptacle;
 import org.lsmr.vending.hardware.CoinReceptacleListener;
 import org.lsmr.vending.hardware.DisabledException;
+import org.lsmr.vending.hardware.EmptyException;
 import org.lsmr.vending.hardware.VendingMachine;
 
 public class ReceptacleListener implements CoinReceptacleListener{
@@ -37,9 +38,20 @@ public class ReceptacleListener implements CoinReceptacleListener{
 	public void coinAdded(CoinReceptacle receptacle, Coin coin) {
 		try {
 			vm.getCoinReceptacle().storeCoins();
-		} catch (CapacityExceededException | DisabledException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (CapacityExceededException e) {
+			try {
+				vm.getCoinRackForCoinKind(coin.getValue()).releaseCoin();
+				vm.getCoinReceptacle().storeCoins();
+			} catch(DisabledException e1) {
+				vm.getOutOfOrderLight().activate();
+			} catch (CapacityExceededException e1) {
+				//CReturnListener already prints its own message for such a case
+			} catch (EmptyException e1) {
+				//Should not happen
+				vm.getOutOfOrderLight().activate();
+			}
+		} catch (DisabledException e) {
+			
 		}
 		
 	}

@@ -7,8 +7,6 @@ import java.util.Scanner;
 import org.lsmr.vending.Coin;
 import org.lsmr.vending.hardware.VendingMachine;
 
-import ca.ucalgary.seng300.a2.DeliveryListener;
-
 //Test cases do not rely on Main
 
 public class Main {

@@ -1,20 +1,12 @@
+package ca.ucalgary.seng300.a2;
+
 import org.lsmr.vending.Coin;
 import org.lsmr.vending.hardware.AbstractHardware;
 import org.lsmr.vending.hardware.AbstractHardwareListener;
 import org.lsmr.vending.hardware.CoinRack;
 import org.lsmr.vending.hardware.CoinRackListener;
-import org.lsmr.vending.hardware.VendingMachine;
 
 public class MyCoinRackListener implements CoinRackListener {
-	private VendingMachine vm;
-	private EventWriter ew;
-	private Logic logic;
-	
-	public MyCoinRackListener (VendingMachine vm, EventWriter ew, Logic logic) {
-		this.vm = vm;
-		this.logic = logic;
-		this.ew = ew;
-	}
 
 	@Override
 	public void enabled(AbstractHardware<? extends AbstractHardwareListener> hardware) {

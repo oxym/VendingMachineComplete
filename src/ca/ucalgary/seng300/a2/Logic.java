@@ -5,7 +5,6 @@ import org.lsmr.vending.hardware.CapacityExceededException;
 import org.lsmr.vending.hardware.DisabledException;
 import org.lsmr.vending.hardware.Display;
 import org.lsmr.vending.hardware.EmptyException;
-import org.lsmr.vending.hardware.PushButton;
 import org.lsmr.vending.hardware.VendingMachine;
 
 public class Logic {
@@ -21,7 +20,6 @@ public class Logic {
 	private CSlotListener slotListener;
 	private DeliveryListener deliveryListener;
 	private MyDisplayListener displayListener;
-	private MyCoinRackListener coinRackListener;
 	private ExactChangeLightListener exactChangeListener;
 	private OutOfOrderLightListener outOfOrderListener;
 	
@@ -43,7 +41,6 @@ public class Logic {
 		exactChangeListener = new ExactChangeLightListener(vm, ew, this);
 		outOfOrderListener = new OutOfOrderLightListener(vm, ew, this);
 		receptacleListener = new ReceptacleListener(vm, ew, this);
-		coinRackListener = new MyCoinRackListener(vm, ew, this);
 		
 		
 		// Register the listeners to their respective classes 
@@ -111,17 +108,22 @@ public class Logic {
 				}
 
 			}
-			else if(credit >= coinKinds[coinKinds.length-1]) {
+			else if(credit > coinKinds[coinKinds.length-1]) {
 				i++;
 			}
-			else if(credit == 0) {
-				vm.getExactChangeLight().deactivate();
-				break;
-			}
 			else {
-				vm.getExactChangeLight().activate();
+				vm.getOutOfOrderLight().activate();
 				break;
+				//Should never happen
 			}
+		}
+		if(credit == 0) {
+			if(vm.getExactChangeLight().equals(true)) {
+				vm.getExactChangeLight().deactivate();
+			}
+		}
+		else {
+			vm.getExactChangeLight().activate();
 		}
 	}
 	

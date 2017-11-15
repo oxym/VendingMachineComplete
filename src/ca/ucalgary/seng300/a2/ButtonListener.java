@@ -1,6 +1,13 @@
 package ca.ucalgary.seng300.a2;
 
-import org.lsmr.vending.hardware.*;
+import org.lsmr.vending.hardware.AbstractHardware;
+import org.lsmr.vending.hardware.AbstractHardwareListener;
+import org.lsmr.vending.hardware.CapacityExceededException;
+import org.lsmr.vending.hardware.DisabledException;
+import org.lsmr.vending.hardware.EmptyException;
+import org.lsmr.vending.hardware.PushButton;
+import org.lsmr.vending.hardware.PushButtonListener;
+import org.lsmr.vending.hardware.VendingMachine;
 
 public class ButtonListener implements PushButtonListener{
 	
@@ -52,6 +59,7 @@ public class ButtonListener implements PushButtonListener{
 			try {
 				vm.getPopCanRack(index).dispensePopCan();
 				logic.changeCredit(-popCost);
+				logic.returnCoins();
 				return;
 			}catch(EmptyException e) {
 				vm.getDisplay().display("Sorry, all out of that selection");
