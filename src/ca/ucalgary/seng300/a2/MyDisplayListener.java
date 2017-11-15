@@ -32,7 +32,7 @@ public class MyDisplayListener implements DisplayListener{
 
 	@Override
 	public void messageChange(Display display, String oldMessage, String newMessage) {
-		System.out.println(newMessage);
+		System.out.print(newMessage + "\n");
 		ew.logEvent("\"" + newMessage + "\" was displayed");
 	}
 
