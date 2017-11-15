@@ -21,7 +21,8 @@ import org.lsmr.vending.hardware.VendingMachine;
 
 public class test {
 	VendingMachine vm;
-	CReceptacleListener crListener;
+	Logic logic;
+	ReceptacleListener crListener;
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream(); // necessary to capture printed output
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
@@ -30,27 +31,15 @@ public class test {
 		System.setOut(new PrintStream(outContent)); // necessary to capture printed output
 		System.setErr(new PrintStream(errContent));
 
-		/*
-		 * Vending Machine Parameters: Accepted coin values: 1, 5, 10, 25, 100, 200
-		 * Number of pop types/selection buttons: 6 Coin Rack Capacity: 200 Pop Can Rack
-		 * Capacity: 10 Coin Receptacle Capacity: 200 Pop (Name, Cost): (popA, 100),
-		 * (popB, 100), (popC, 100), (popD, 100), (popE, 150), (popF, 200)
-		 */
+		EventWriter ew = new EventWriter("eventLog.txt");
 		vm = new VendingMachine(new int[] { 1, 5, 10, 25, 100, 200 }, 6, 200, 10, 200, 200, 200);
 		vm.configure(Arrays.asList("popA", "popB", "popC", "popD", "popE", "popF"),
 				Arrays.asList(100, 100, 100, 100, 150, 200));
-
-		crListener = new CReceptacleListener();
-
-		vm.getCoinReceptacle().register(crListener);
-		vm.getCoinSlot().register(new CSlotListener());
-		for (int i = 0; i < 6; i++) {
-			vm.getPopCanRack(i).register(new PCRListener());
-			vm.getSelectionButton(i).register(new ButtonListener(vm, crListener));
-		}
-
+		
 		vm.loadPopCans(10, 10, 10, 10, 10, 10);
 		vm.loadCoins(0, 0, 0, 0, 0, 0);
+
+		logic = new Logic(vm, ew);
 	}
 
 	@After
@@ -64,13 +53,13 @@ public class test {
 	// the button is pressed
 	public void testTrue() {
 		try {
-			vm.getCoinSlot().addCoin(new Coin(100));
+			logic.insertCoin(new Coin(100));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(0).press();
-		assertEquals("popA was vended.\nCoins removed from receptacle.\n", outContent.toString());
-		assertEquals(0, crListener.getTotal());
+		logic.pressButton(0);
+		assertEquals("Credit: 100\nThank you for your purchase!\n", outContent.toString());
+		assertEquals(0, logic.getCredit());
 	}
 
 	// Tests behavior when the correct coins are added, but not enough of them are
@@ -78,37 +67,43 @@ public class test {
 	@Test
 	public void testNotEnoughCoins() {
 		try {
-			vm.getCoinSlot().addCoin(new Coin(25));
+			logic.insertCoin(new Coin(25));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(0).press();
-		assertEquals("Not enough cash\n", outContent.toString());
-		assertEquals(25, crListener.getTotal());
+		logic.pressButton(0);
+		assertEquals("Credit: 25\nNot enough credit\n", outContent.toString());
+		assertEquals(25, logic.getCredit());
 	}
 
 	// Tests what happens when a button is pushed with no money added whatsoever
 	@Test
 	public void testNoCoins() {
-		vm.getSelectionButton(0).press();
-		assertEquals("Not enough cash\n", outContent.toString());
-		assertEquals(0, crListener.getTotal());
+		logic.pressButton(0);
+		assertEquals("Not enough credit\n", outContent.toString());
+		assertEquals(0, logic.getCredit());
 	}
 
 	// Tests to see if the coin slot rejects the money once the receptacle is full,
 	// and if vending can still proceed as intended after too many coins were added
 	@Test
 	public void testAddOverCapacity() {
+		String a = "";
 		try {
 			for (int i = 0; i < 201; i++) {
-				vm.getCoinSlot().addCoin(new Coin(25));
+				logic.insertCoin(new Coin(25));
 			}
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(0).press();
-		assertEquals("Coin Rejected.\npopA was vended.\nCoins removed from receptacle.\n", outContent.toString());
-		assertEquals(0, crListener.getTotal());
+		logic.pressButton(0);
+		for (int i = 25; i < 5001 ; i += 25) {
+			a += "Credit: " + Integer.toString(i) + "\n";
+		}
+		
+		a += "Coin return slot is full, please take your change\n25 coin rejected. Please insert valid coin.\n\nThank you for your purchase!\n";
+		assertEquals(a, outContent.toString());
+		assertEquals(0, logic.getCredit());
 	}
 
 	// Tests behavior upon emptying a pop can rack.
@@ -116,18 +111,21 @@ public class test {
 	// was not vended
 	@Test
 	public void testEmptyPopCanRack() {
+		String s = "";
 		try {
 			for (int i = 0; i < 11; i++) {
-				vm.getCoinSlot().addCoin(new Coin(100));
-				vm.getSelectionButton(0).press();
+				logic.insertCoin(new Coin(100));
+				logic.pressButton(0);
+				if (i < 10) {
+					s += "Credit: 100\nThank you for your purchase!\n";
+				}
 			}
 		} catch (DisabledException e) {
 			fail();
 		}
-		assertEquals(
-				"popA was vended.\nCoins removed from receptacle.\npopA was vended.\nCoins removed from receptacle.\npopA was vended.\nCoins removed from receptacle.\npopA was vended.\nCoins removed from receptacle.\npopA was vended.\nCoins removed from receptacle.\npopA was vended.\nCoins removed from receptacle.\npopA was vended.\nCoins removed from receptacle.\npopA was vended.\nCoins removed from receptacle.\npopA was vended.\nCoins removed from receptacle.\npopA was vended.\nCoins removed from receptacle.\nSorry, it's empty\n",
-				outContent.toString());
-		assertEquals(100, crListener.getTotal());
+		s += "Credit: 100\nSorry, all out of that selection\n";
+		assertEquals(s, outContent.toString());
+		assertEquals(100, logic.getCredit());
 	}
 
 	// Tests pressing an invalid button
@@ -135,7 +133,7 @@ public class test {
 	public void testPressInvalid() {
 		boolean thrown = false;
 		try {
-			vm.getSelectionButton(7);
+			logic.pressButton(7);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			thrown = true;
 		}
@@ -146,7 +144,7 @@ public class test {
 	public void testPressInvalidNegative() {
 		boolean thrown = false;
 		try {
-			vm.getSelectionButton(-1);
+			logic.pressButton(-1);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			thrown = true;
 		}
@@ -157,56 +155,56 @@ public class test {
 	@Test
 	public void testAllButtons() {
 		try {
-			vm.getCoinSlot().addCoin(new Coin(100));
+			logic.insertCoin(new Coin(100));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(0).press();
-		assertEquals(0, crListener.getTotal());
+		logic.pressButton(0);
+		assertEquals(0, logic.getCredit());
 
 		try {
-			vm.getCoinSlot().addCoin(new Coin(100));
+			logic.insertCoin(new Coin(100));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(1).press();
-		assertEquals(0, crListener.getTotal());
+		logic.pressButton(1);
+		assertEquals(0, logic.getCredit());
 
 		try {
-			vm.getCoinSlot().addCoin(new Coin(100));
+			logic.insertCoin(new Coin(100));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(2).press();
-		assertEquals(0, crListener.getTotal());
+		logic.pressButton(2);
+		assertEquals(0, logic.getCredit());
 
 		try {
-			vm.getCoinSlot().addCoin(new Coin(100));
+			logic.insertCoin(new Coin(100));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(3).press();
-		assertEquals(0, crListener.getTotal());
+		logic.pressButton(3);
+		assertEquals(0, logic.getCredit());
 
 		try {
-			vm.getCoinSlot().addCoin(new Coin(100));
-			vm.getCoinSlot().addCoin(new Coin(200));
+			logic.insertCoin(new Coin(100));
+			logic.insertCoin(new Coin(200));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(4).press();
-		assertEquals(0, crListener.getTotal());
+		logic.pressButton(4);
+		assertEquals(0, logic.getCredit());
 
 		try {
-			vm.getCoinSlot().addCoin(new Coin(200));
+			logic.insertCoin(new Coin(200));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(5).press();
+		logic.pressButton(5);
 		assertEquals(
 				"popA was vended.\nCoins removed from receptacle.\npopB was vended.\nCoins removed from receptacle.\npopC was vended.\nCoins removed from receptacle.\npopD was vended.\nCoins removed from receptacle.\npopE was vended.\nCoins removed from receptacle.\npopF was vended.\nCoins removed from receptacle.\n",
 				outContent.toString());
-		assertEquals(0, crListener.getTotal());
+		assertEquals(0, logic.getCredit());
 	}
 
 	// Tests such that if a user adds too little money,and presses a button, the
@@ -215,33 +213,33 @@ public class test {
 	@Test
 	public void testCoinsKeptInReceptacle() {
 		try {
-			vm.getCoinSlot().addCoin(new Coin(100));
+			logic.insertCoin(new Coin(100));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(5).press();
-		assertEquals(100, crListener.getTotal());
+		logic.pressButton(5);
+		assertEquals(100, logic.getCredit());
 		try {
-			vm.getCoinSlot().addCoin(new Coin(100));
+			logic.insertCoin(new Coin(100));
 		} catch (DisabledException e) {
 			fail();
 		}
-		vm.getSelectionButton(5).press();
-		assertEquals("Not enough cash\npopF was vended.\nCoins removed from receptacle.\n", outContent.toString());
-		assertEquals(0, crListener.getTotal());
+		logic.pressButton(5);
+		assertEquals("Credit: 100\nNot enough credit\nCredit: 200\nThank you for your purchase!\n", outContent.toString());
+		assertEquals(0, logic.getCredit());
 	}
 
 	// Tests that invalid coins don't count towards money used to buy pop
 	@Test
 	public void testAddInvalidCoins() {
 		try {
-			vm.getCoinSlot().addCoin(new Coin(300));
+			logic.insertCoin(new Coin(300));
 		} catch (DisabledException e) {
 			fail();
 		}
-		assertEquals(0, crListener.getTotal());
-		vm.getSelectionButton(0).press();
-		assertEquals("Coin Rejected.\nNot enough cash\n", outContent.toString());
+		assertEquals(0, logic.getCredit());
+		logic.pressButton(0);
+		assertEquals("Coin return slot is full, please take your change\n300 coin rejected. Please insert valid coin.\n\nNot enough credit\n", outContent.toString());
 	}
 
 }
