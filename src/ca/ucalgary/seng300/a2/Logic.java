@@ -21,6 +21,7 @@ public class Logic {
 	private CSlotListener slotListener;
 	private DeliveryListener deliveryListener;
 	private MyDisplayListener displayListener;
+	private MyCoinRackListener coinRackListener;
 	private ExactChangeLightListener exactChangeListener;
 	private OutOfOrderLightListener outOfOrderListener;
 	
@@ -42,6 +43,7 @@ public class Logic {
 		exactChangeListener = new ExactChangeLightListener(vm, ew, this);
 		outOfOrderListener = new OutOfOrderLightListener(vm, ew, this);
 		receptacleListener = new ReceptacleListener(vm, ew, this);
+		coinRackListener = new MyCoinRackListener(vm, ew, this);
 		
 		
 		// Register the listeners to their respective classes 
