@@ -94,12 +94,12 @@ public class Logic {
 	public void pressButton(int button) {
 		vm.getSelectionButton(button).press();
 		//Check if vm still has pop
-		int hasPop = 0;
+		bool hasPop = false;
 		for(int i = 0; i < vm.getNumberOfPopCanRacks(); ++i) {
-			if(vm.getPopCanRack(i).size()>0) hasPop = 1;
+			if(vm.getPopCanRack(i).size()>0) hasPop = true;
 		}
 		if(!hasPop) {
-			vm.getOutOfOrderLight().activate();
+			setOutofOrder();
 		}
 		
 	}
@@ -160,6 +160,8 @@ public class Logic {
 
 		for(int i = 0; i < vm.getNumberOfCoinRacks(); i++)
 		    vm.getCoinRack(i).disable();
+		
+		vm.getOutOfOrderLight().activate();
 
 	}
 	
