@@ -50,8 +50,8 @@ public class ButtonListener implements PushButtonListener{
 		}
 		else {
 			try {
-				vm.getPopCanRack(index).dispensePopCan();
 				logic.changeCredit(-popCost);
+				vm.getPopCanRack(index).dispensePopCan();
 				return;
 			}catch(EmptyException e) {
 				vm.getDisplay().display("Sorry, all out of that selection");

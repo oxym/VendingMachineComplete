@@ -93,6 +93,13 @@ public class Logic {
 	public void pressButton(int button) {
 		vm.getSelectionButton(button).press();
 		//Check if vm still has pop
+		int hasPop = 0;
+		for(int i = 0; i < vm.getNumberOfPopCanRacks(); ++i) {
+			if(vm.getPopCanRack(i).size()>0) hasPop = 1;
+		}
+		if(!hasPop) {
+			vm.getOutOfOrderLight().activate();
+		}
 		
 	}
 	
