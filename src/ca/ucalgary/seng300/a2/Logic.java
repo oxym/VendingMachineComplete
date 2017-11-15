@@ -136,5 +136,17 @@ public class Logic {
 		return vm.getDisplay();
 	}
 
+	public void setOutofOrder() {
+
+		vm.getCoinSlot().disable();
+		vm.getCoinReceptacle().disable();
+
+		for(int i = 0; i < vm.getNumberOfPopCanRacks(); i++)
+		    vm.getPopCanRack(i).disable();
+
+		for(int i = 0; i < vm.getNumberOfCoinRacks(); i++)
+		    vm.getCoinRack(i).disable();
+
+	}
 	
 }
