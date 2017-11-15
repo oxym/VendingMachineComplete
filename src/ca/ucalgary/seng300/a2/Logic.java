@@ -10,6 +10,7 @@ public class Logic {
 	private VendingMachine vm;
 	private EventWriter ew;
 	private int credit = 0;
+	private int[] coinKinds;
 	
 	//listeners
 	//private ButtonListener buttonListener;
@@ -60,7 +61,24 @@ public class Logic {
 			vm.getPopCanRack(i).register(new PCRListener(vm, ew, this));
 			vm.getSelectionButton(i).register(new ButtonListener(vm, ew, this));
 		}
-
+		
+		//Array of coin kinds for change return
+		coinKinds = new int[vm.getNumberOfCoinRacks()];
+		for(int i=0; i<vm.getNumberOfCoinRacks(); i++) {
+			coinKinds[i] = vm.getCoinKindForCoinRack(i);
+		}
+		
+		//Sort coinKinds array in descending order
+		int temp;
+		for(int i = 0; i < coinKinds.length; i++) {
+			for(int j = 1; j < coinKinds.length; j++) {
+				if(coinKinds[j] > coinKinds[j-1]) {
+					temp = coinKinds[j];
+					coinKinds[j] = coinKinds[j-1];
+					coinKinds[j-1] = temp;
+				}
+			}
+		}
 		
 	}
 	
@@ -75,9 +93,37 @@ public class Logic {
 		
 	}
 	
-	public void returnCoins() {
-		
-		//TODO
+	public void returnCoins() {		
+
+		for(int i = 0; i < coinKinds.length;) {
+			if(credit >= coinKinds[i]) {
+				try {
+					vm.getCoinRackForCoinKind(coinKinds[i]).releaseCoin();
+					credit -= coinKinds[i];
+				}
+				catch(DisabledException e) {
+					
+				}
+				catch(EmptyException e) {
+					i++;
+				}
+				catch(CapacityExceededException e) {
+					//should never happen
+				}
+
+			}
+			else if(credit >= coinKinds[coinKinds.length-1]) {
+				i++;
+			}
+			else if(credit == 0) {
+				vm.getExactChangeLight().deactivate();
+				break;
+			}
+			else {
+				vm.getExactChangeLight().activate();
+				break;
+			}
+		}
 	}
 	
 	
