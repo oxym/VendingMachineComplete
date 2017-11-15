@@ -52,6 +52,7 @@ public class ButtonListener implements PushButtonListener{
 			try {
 				vm.getPopCanRack(index).dispensePopCan();
 				logic.changeCredit(-popCost);
+				checkPop();
 				return;
 			}catch(EmptyException e) {
 				vm.getDisplay().display("Sorry, all out of that selection");
@@ -66,5 +67,22 @@ public class ButtonListener implements PushButtonListener{
 				return;
 			}
 		}
+	}
+	
+	private void checkPop() {
+		
+		boolean empty = false;
+		
+		while(empty == false) {
+			
+			for(int i = 0; i < vm.getNumberOfPopCanRacks(); i++) {
+				int num = vm.getPopCanRack(i).size();
+				if(num == 0)
+					empty = true;
+			}
+		}
+		
+		if(empty == true)
+			vm.getOutOfOrderLight().activate();
 	}
 }
