@@ -5,8 +5,10 @@ package ca.ucalgary.seng300.a2;
 import org.lsmr.vending.Coin;
 import org.lsmr.vending.hardware.AbstractHardware;
 import org.lsmr.vending.hardware.AbstractHardwareListener;
+import org.lsmr.vending.hardware.CapacityExceededException;
 import org.lsmr.vending.hardware.CoinReceptacle;
 import org.lsmr.vending.hardware.CoinReceptacleListener;
+import org.lsmr.vending.hardware.DisabledException;
 import org.lsmr.vending.hardware.VendingMachine;
 
 public class ReceptacleListener implements CoinReceptacleListener{
@@ -33,7 +35,12 @@ public class ReceptacleListener implements CoinReceptacleListener{
 
 	@Override
 	public void coinAdded(CoinReceptacle receptacle, Coin coin) {
-		vm.getCoinReceptacle().storeCoins();
+		try {
+			vm.getCoinReceptacle().storeCoins();
+		} catch (CapacityExceededException | DisabledException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -57,7 +64,12 @@ public class ReceptacleListener implements CoinReceptacleListener{
 
 	@Override
 	public void coinsUnloaded(CoinReceptacle receptacle, Coin... coins) {
-		vm.getCoinReceptacle().storeCoins();
+		try {
+			vm.getCoinReceptacle().storeCoins();
+		} catch (CapacityExceededException | DisabledException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

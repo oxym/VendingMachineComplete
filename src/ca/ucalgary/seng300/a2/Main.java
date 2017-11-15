@@ -65,6 +65,8 @@ public class Main {
 					} catch (ArrayIndexOutOfBoundsException e) {
 						System.out.println("Invalid Button");
 					}
+				} else if(str[0].equals("returnCoins")) {
+					logic.returnCoins();
 				} else if (str[0].equals("off")) {
 					break;
 				} else {

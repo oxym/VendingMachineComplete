@@ -22,8 +22,7 @@ public class CReturnListener implements CoinReturnListener {
 		this.vm = vend;
 		this.ew = ew;
 		this.logic = logic;
-		//hardware bug
-		//off = vm.getCoinReturn().isDisabled();
+		off = vm.getCoinReturn().isDisabled();
 	}
 	
 	@Override
@@ -40,7 +39,7 @@ public class CReturnListener implements CoinReturnListener {
 
 	@Override
 	public void coinsDelivered(CoinReturn coinReturn, Coin[] coins) {
-		vm.getDisplay().display("Coin return slot is full, please take your change");
+		vm.getDisplay().display("Change Dispensed");
 		ew.logEvent(coins + " returned");
 
 	}
