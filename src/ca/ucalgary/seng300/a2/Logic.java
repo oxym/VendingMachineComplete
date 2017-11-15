@@ -97,7 +97,8 @@ public class Logic {
 		//Check if vm still has pop
 		boolean hasPop = false;
 		for(int i = 0; i < vm.getNumberOfPopCanRacks(); ++i) {
-			if(vm.getPopCanRack(i).size()>0) hasPop = true;
+			if(vm.getPopCanRack(i).size()>0) 
+				hasPop = true;
 		}
 		if(!hasPop) {
 			setOutofOrder();
@@ -150,6 +151,10 @@ public class Logic {
 	
 	public Display getDisplay() {
 		return vm.getDisplay();
+	}
+	
+	public int getPopRackNumber() {
+		return vm.getNumberOfPopCanRacks();
 	}
 	
 	public IndicatorLight getLight(String light) {

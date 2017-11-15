@@ -32,7 +32,6 @@ public class OutOfOrderLightListener implements IndicatorLightListener  {
 	@Override
 	public void activated(IndicatorLight light) {
 		vm.getDisplay().display("Out of Order");
-		logic.setOutofOrder();
 		ew.logEvent("Out of order light on.");
 		
 	}

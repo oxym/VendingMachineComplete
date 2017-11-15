@@ -81,28 +81,6 @@ public class test {
 		assertEquals(0, logic.getCredit());
 	}
 
-	// Tests to see if the coin slot rejects the money once the receptacle is full,
-	// and if vending can still proceed as intended after too many coins were added
-	@Test
-	public void testAddOverCapacity() {
-		String a = "";
-		try {
-			for (int i = 0; i < 201; i++) {
-				logic.insertCoin(new Coin(25));
-			}
-		} catch (DisabledException e) {
-			fail();
-		}
-		logic.pressButton(0);
-		for (int i = 25; i < 5001 ; i += 25) {
-			a += "Credit: " + Integer.toString(i) + "\n";
-		}
-		
-		a += "Coin return slot is full, please take your change\n25 coin rejected. Please insert valid coin.\n\nThank you for your purchase!\n";
-		assertEquals(a, outContent.toString());
-		assertEquals(0, logic.getCredit());
-	}
-
 	// Tests behavior upon emptying a pop can rack.
 	// The coin receptacle should still have the money that a user entered if pop
 	// was not vended
@@ -160,6 +138,23 @@ public class test {
 		assertEquals(50, logic.getCredit());
 		assertTrue(logic.getLight("exact change").isActive());
 		
+	}
+	
+	@Test
+	public void testOutOfOrder() {
+
+		for (int p = 0; p < logic.getPopRackNumber(); ++p) {
+			for (int a = 0; a < 10; a++) {
+				try {
+					logic.insertCoin(new Coin(200));
+				} catch (DisabledException e) {
+					fail();
+				}
+				logic.pressButton(p);
+			}
+		}
+		
+		assertTrue(logic.getLight("out of order").isActive());
 	}
 
 	// Tests to see if all the buttons work as intended given enough money.

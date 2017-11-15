@@ -29,7 +29,6 @@ public class Main {
 				"\"insert 1, 5, 10, 25, 100 or 200\" to insert a coin. \"press 0, 1, 2, 3, 4 or 5\" to dispense a pop can. \"off\" to quit.");
 		System.out.println("popA = 100, popB = 100, popC = 100, popD = 100, popE = 150, popF = 200");
 		
-		Thread thread1 = Thread.currentThread();
 		Thread thread2 = null;
 		Scanner s = new Scanner(System.in);
 		String st;
