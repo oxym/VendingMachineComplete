@@ -57,7 +57,7 @@ public class Logic {
 		vm.getDeliveryChute().register(deliveryListener);
 		
 		for (int i = 0; i< vm.getNumberOfCoinRacks(); ++i) {
-			vm.getCoinRack(i).register(new MyCoinRackLister(vm, ew, this));
+			vm.getCoinRack(i).register(new MyCoinRackListener(vm, ew, this));
 		}
 		
 
