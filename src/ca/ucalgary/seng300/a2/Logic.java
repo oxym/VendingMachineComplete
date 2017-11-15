@@ -2,6 +2,7 @@ package ca.ucalgary.seng300.a2;
 
 import org.lsmr.vending.Coin;
 import org.lsmr.vending.hardware.DisabledException;
+import org.lsmr.vending.hardware.Display;
 import org.lsmr.vending.hardware.PushButton;
 import org.lsmr.vending.hardware.VendingMachine;
 
@@ -17,8 +18,8 @@ public class Logic {
 	private CSlotListener slotListener;
 	private DeliveryListener deliveryListener;
 	private MyDisplayListener displayListener;
-	private MyIndicatorLightListener exactChangeListener;
-	private MyIndicatorLightListener outOfOrderListener;
+	private ExactChangeLightListener exactChangeListener;
+	private OutOfOrderLightListener outOfOrderListener;
 	
 	private ReceptacleListener receptacleListener;
 	
@@ -35,8 +36,8 @@ public class Logic {
 		slotListener = new CSlotListener(vm, ew, this);
 		deliveryListener = new DeliveryListener(vm, ew, this);
 		displayListener = new MyDisplayListener(vm, ew, this);
-		exactChangeListener = new MyIndicatorLightListener(vm, ew, this);
-		outOfOrderListener = new MyIndicatorLightListener(vm, ew, this);
+		exactChangeListener = new ExactChangeLightListener(vm, ew, this);
+		outOfOrderListener = new OutOfOrderLightListener(vm, ew, this);
 		receptacleListener = new ReceptacleListener(vm, ew, this);
 		
 		
@@ -85,6 +86,10 @@ public class Logic {
 	
 	public void changeCredit(int amount) {
 		credit = credit +  amount;
+	}
+	
+	public Display getDisplay() {
+		return vm.getDisplay();
 	}
 
 	
