@@ -188,6 +188,7 @@ public class test {
 		} catch (DisabledException e) {
 			fail();
 		}
+		assertEquals(300, logic.getCredit());
 		logic.pressButton(4);
 		assertEquals(0, logic.getCredit());
 
@@ -235,7 +236,7 @@ public class test {
 		}
 		assertEquals(0, logic.getCredit());
 		logic.pressButton(0);
-		assertEquals("Coin return slot is full, please take your change\n300 coin rejected. Please insert valid coin.\n\nNot enough credit\n", outContent.toString());
+		assertEquals("300 Coin Dispensed\n300 coin rejected. Please insert valid coin.\n\nNot enough credit\n", outContent.toString());
 	}
 
 }
