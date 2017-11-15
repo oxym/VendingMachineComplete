@@ -48,16 +48,11 @@ public class Logic {
 		vm.getCoinReceptacle().register(receptacleListener);
 		vm.getDisplay().register(displayListener);
 		vm.getCoinSlot().register(slotListener);
-		
-		//hardware bug:
-		//vm.getCoinReturn().register(returnListener);
-		
+		vm.getCoinReturn().register(returnListener);
 		vm.getExactChangeLight().register(exactChangeListener);
 		vm.getOutOfOrderLight().register(outOfOrderListener);
 		vm.getDeliveryChute().register(deliveryListener);
 		
-		//below line is giving NullPointer exception
-		//vm.getCoinReturn().register(returnListener);
 
 		for (int i = 0; i < vm.getNumberOfPopCanRacks(); i++) {
 			vm.getPopCanRack(i).register(new PCRListener(vm, ew, this));
