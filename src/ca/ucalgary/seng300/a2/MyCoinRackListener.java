@@ -33,7 +33,7 @@ public class MyCoinRackListener implements CoinRackListener {
 
 	@Override
 	public void coinsFull(CoinRack rack) {
-		vm.getOutOfOrderLight().activate();
+		logic.setOutofOrder();
 	}
 
 	@Override
