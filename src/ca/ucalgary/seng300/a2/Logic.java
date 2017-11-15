@@ -94,7 +94,7 @@ public class Logic {
 	public void pressButton(int button) {
 		vm.getSelectionButton(button).press();
 		//Check if vm still has pop
-		bool hasPop = false;
+		boolean hasPop = false;
 		for(int i = 0; i < vm.getNumberOfPopCanRacks(); ++i) {
 			if(vm.getPopCanRack(i).size()>0) hasPop = true;
 		}
